@@ -3,4 +3,6 @@
     <string name="prime_number">Prime number</string>
     <string name="perfect_number">Perfect number</string>
     <string name="palindrome_number">Palindrome number</string>
+    <string name="validate">validate</string>
+    <string name="enter_number">Enter number</string>
 </resources>

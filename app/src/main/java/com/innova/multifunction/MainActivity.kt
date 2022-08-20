@@ -4,12 +4,44 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import com.innova.multifunction.extensions.isPalindrome
+import com.innova.multifunction.extensions.isPerfectNumber
+import com.innova.multifunction.extensions.isPrimeNumber
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var operation: Operation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val tvResult: TextView = findViewById(R.id.tvResult)
+        val etNumber: EditText = findViewById(R.id.etNumber)
+        val btnValidate: Button = findViewById(R.id.btnValidate)
+
+        btnValidate.setOnClickListener {
+            val number: Int = etNumber.text.toString().toInt()
+            try {
+                tvResult.text = when (operation) {
+                    Operation.IsPrimeNumber -> if (number.isPrimeNumber()) "Is prime number"
+                    else "Isn't prime number"
+
+                    Operation.IsPerfectNumber -> if (number.isPerfectNumber()) "is perfect number"
+                    else "isn't perfect number"
+
+                    Operation.IsPalindromeNumber -> if (number.isPalindrome()) "Is palindrome"
+                    else "Isn't palindrome"
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "get a menu option", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -18,11 +50,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.is_prime_number_action -> Toast.makeText(this, "hola", Toast.LENGTH_SHORT).show()
-            R.id.is_perfect_number_action -> TODO()
-            R.id.is_palindrome_number_action -> TODO()
-            else -> Toast.makeText(this, "chao", Toast.LENGTH_SHORT).show()
+        operation = when (item.itemId) {
+            R.id.is_perfect_number_action -> Operation.IsPerfectNumber
+            R.id.is_palindrome_number_action -> Operation.IsPalindromeNumber
+            else -> Operation.IsPrimeNumber
         }
         return true
     }
