@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MultiFunction</string>
+    <string name="prime_number">Prime number</string>
+    <string name="perfect_number">Perfect number</string>
+    <string name="palindrome_number">Palindrome number</string>
 </resources>

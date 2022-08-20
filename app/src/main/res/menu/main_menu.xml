@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/is_prime_number_action"
+        android:title="@string/prime_number" />
+    <item
+        android:id="@+id/is_perfect_number_action"
+        android:title="@string/perfect_number" />
+    <item
+        android:id="@+id/is_palindrome_number_action"
+        android:title="@string/palindrome_number" />
+</menu>
