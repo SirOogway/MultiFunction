@@ -8,10 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.innova.multifunction.extensions.isPalindrome
-import com.innova.multifunction.extensions.isPerfectNumber
-import com.innova.multifunction.extensions.isPrimeNumber
-import java.lang.Exception
+import com.innova.multifunction.extensions.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var operation: Operation
@@ -22,10 +19,13 @@ class MainActivity : AppCompatActivity() {
         val tvResult: TextView = findViewById(R.id.tvResult)
         val etNumber: EditText = findViewById(R.id.etNumber)
         val btnValidate: Button = findViewById(R.id.btnValidate)
+        val maxNumber = 1073741823
+
+        etNumber.errorIsNumberExceededListener(maxNumber, "Number is very large")
 
         btnValidate.setOnClickListener {
-            val number: Int = etNumber.text.toString().toInt()
             try {
+                val number: Int = etNumber.text.toString().toInt()
                 tvResult.text = when (operation) {
                     Operation.IsPrimeNumber -> if (number.isPrimeNumber()) "Is prime number"
                     else "Isn't prime number"
@@ -36,13 +36,16 @@ class MainActivity : AppCompatActivity() {
                     Operation.IsPalindromeNumber -> if (number.isPalindrome()) "Is palindrome"
                     else "Isn't palindrome"
                 }
-            } catch (e: Exception) {
-                Toast.makeText(this, "get a menu option", Toast.LENGTH_SHORT).show()
-
+            } catch (e: UninitializedPropertyAccessException) {
+                Toast.makeText(this, "select a menu option", Toast.LENGTH_SHORT).show()
+            } catch (e: NumberFormatException) {
+                if (!etNumber.isNumberExceeded(maxNumber))
+                    Toast.makeText(this, "Enter a number", Toast.LENGTH_SHORT)
+                        .show()
             }
         }
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -55,6 +58,16 @@ class MainActivity : AppCompatActivity() {
             R.id.is_palindrome_number_action -> Operation.IsPalindromeNumber
             else -> Operation.IsPrimeNumber
         }
+        operationToTag()
         return true
+    }
+
+    private fun operationToTag() {
+        val tvTagFunctionSelected: TextView = findViewById(R.id.tvTagFunctionSelected)
+        tvTagFunctionSelected.text = "Validate " + when (operation) {
+            Operation.IsPerfectNumber -> "perfect number"
+            Operation.IsPalindromeNumber -> "palindrome number"
+            Operation.IsPrimeNumber -> "prime number"
+        }
     }
 }

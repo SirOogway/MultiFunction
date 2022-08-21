@@ -3,14 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/tvTagFunctionSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/materialLayout"
+        android:layout_alignStart="@id/materialLayout"/>
+
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/materialLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/tvResult"
         android:layout_centerHorizontal="true"
-        android:hint="@string/enter_number">
+        android:hint="@string/enter_number"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@color/primary_soft">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNumber"
@@ -18,7 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:gravity="end"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColorHighlight="@color/primary_super_soft"
+            android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -26,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/btnValidate"
-        android:layout_alignEnd="@id/btnValidate"
+        android:layout_alignStart="@id/btnValidate"
         android:layout_marginBottom="24dp" />
 
     <Button
@@ -35,5 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/validate" />
+        android:text="@string/validate"
+        android:backgroundTint="@color/primary"/>
 </RelativeLayout>
